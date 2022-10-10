@@ -3,8 +3,6 @@ def print_in_format(matrix):
     for i in range(9):
         if i % 3 == 0 and i > 0:
             print("")
-
-        # Print the tile
         print(str(matrix[i])+" ", end="")
 
 
@@ -44,8 +42,8 @@ def move(ar, p, st):
 
 
 state = [1, 2, 3,
-         4, 5, 0,
-         8, 7, 6]
+         0, 5, 6,
+         4, 7, 8]
 
 h = count(state)
 Level = 1
