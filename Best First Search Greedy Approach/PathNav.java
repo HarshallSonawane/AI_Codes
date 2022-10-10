@@ -95,6 +95,7 @@ public class PathNav {
 
         int h[] = { 20, 22, 21, 10,
                 25, 24, 30, 5, 12, 0 };
+
         List<Integer> path = GBFS(h, V, 0, 9);
         for (int i = 0; i < path.size() - 1; i++) {
             System.out.print(path.get(i) + " --> ");
