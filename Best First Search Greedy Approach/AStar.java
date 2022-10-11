@@ -28,6 +28,7 @@ public class AStar {
 
     private static List<int[]> A_star(int board[][],
             int src[], int dest[]) {
+
         Node srcNode = new Node(null, src);
         Node destNode = new Node(null, dest);
 
