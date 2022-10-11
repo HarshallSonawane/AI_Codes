@@ -94,7 +94,8 @@ public class AStar {
                 child.h = (int) ((Math.pow(child.position[0] -
                         destNode.position[0], 2)
                         + (Math.pow(child.position[1] -
-                                destNode.position[1], 2))));
+                                destNode.p
+                                osition[1], 2))));
                 child.f = child.g + child.h;
 
                 for (Node openNode : openList) {

@@ -31,8 +31,8 @@ public class PathNav {
 
         List<pathNode> openList = new ArrayList<>();
         List<pathNode> closeList = new ArrayList<>();
-
         openList.add(new pathNode(src, null));
+
         while (!openList.isEmpty()) {
 
             pathNode currentNode = openList.get(0);
