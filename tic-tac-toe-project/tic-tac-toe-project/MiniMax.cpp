@@ -1,6 +1,6 @@
 #include <iostream>
 
-// Structure
+// Structure for moves
 struct move
 {
     int r, c, score;
