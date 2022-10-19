@@ -1,5 +1,6 @@
 #include <iostream>
 
+// Structure
 struct move
 {
     int r, c, score;
