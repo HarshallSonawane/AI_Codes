@@ -53,8 +53,7 @@ int check(node *nodeArr, const int count, string s1, string s2, string s3)
     return 0;
 }
 
-bool permutation(const int count, node *nodeArr, int n,
-                 string s1, string s2, string s3)
+bool permutation(const int count, node *nodeArr, int n, string s1, string s2, string s3)
 {
 
     if (n == count - 1)
@@ -68,10 +67,10 @@ bool permutation(const int count, node *nodeArr, int n,
                 nodeArr[n].v = i;
                 if (check(nodeArr, count, s1, s2, s3) == 1)
                 {
-                    cout << "\nSolution found: ";
+                    cout << "\nSolution found: \n";
                     for (int j = 0; j < count; j++)
                         cout << " " << nodeArr[j].c << " = "
-                             << nodeArr[j].v;
+                             << nodeArr[j].v << "\n";
                     return true;
                 }
             }

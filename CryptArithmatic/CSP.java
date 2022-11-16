@@ -1,74 +1,81 @@
+import java.io.IOException;
+import java.util.Scanner;
 
 public class CSP {
-    static int s = 1, f = -1, u = -1, n = -1, w = -1, m = -1, i = -1;
 
-    static boolean check(int temp) {
-        return (temp != s && temp != u && temp != n && temp != f && temp != w && temp != i && temp != m);
+    public static void main(String[] args) throws IOException {
+
+        Scanner sc = new Scanner(System.in);
+        String w1 = sc.next();
+        String w2 = sc.next();
+        String w3 = sc.next();
+
+        solve(w1, w2, w3);
     }
 
-    static char getChar(int d) {
-        if (d == s)
-            return 's';
-        else if (d == u) {
-            return 'u';
-        } else if (d == n) {
-            return 'n';
-        } else if (d == f) {
-            return 'f';
-        } else if (d == w) {
-            return 'w';
-        } else if (d == i) {
-            return 'i';
-        } else if (d == m) {
-            return 'm';
-        } else
-            return '0';
+    static void solve(String w1, String w2, String w3) {
+        usedLetter = new boolean[26];
+        usedDigit = new boolean[26];
+        assignedDigit = new int[26];
+        markLetters(w1);
+        markLetters(w2);
+        markLetters(w3);
+        backtrack(0, w1, w2, w3);
+        System.out.println("No more solutions :(");
     }
 
-    public static void main(String[] args) {
+    static boolean[] usedLetter;
+    static boolean[] usedDigit;
+    static int[] assignedDigit;
 
-        for (int t = 2; t < 10; t++) {
-            int ans = s + t;
-            ans = ans / 10;
-            ans = ans % 2;
-            if (ans == 1 && check(t)) {
-                f = t;
-                w = ans / 2;
-                break;
-            }
-        }
-        for (int t = 1; t < 10; t++) {
-            if (check(t)) {
-                u = t;
-                if (check(u + u)) {
-                    i = u + u;
-                    break;
-                }
-                break;
-            }
-        }
-        for (int t = 1; t < 10; t++) {
-            if (check(t)) {
-                n = t;
-                if (check(n + n)) {
-                    m = n + n;
-                    break;
-                }
-                break;
-            }
-        }
-        System.out.println(s + " " + u + " " + n);
-        System.out.println((f) + " " + u + " " + n);
-        System.out.println((s + f) + " " + (u + u) + " " + (n + n));
-
-        System.out.println();
-        System.out.println("s" + "u" + "n");
-        System.out.println("f" + "u" + "n");
-        int ans = s + f;
-        System.out.print(getChar(ans/10));
-        System.out.print(getChar(ans%10));
-        System.out.print(getChar(u + u));
-        System.out.print(getChar(n + n));
+    static void markLetters(String w) {
+        for (int i = 0; i < w.length(); ++i)
+            usedLetter[w.charAt(i) - 'A'] = true;
     }
 
+    static boolean check(String w1, String w2, String w3) {
+
+        if (leadingZero(w1) || leadingZero(w2) || leadingZero(w3))
+            return false;
+
+        return value(w1) + value(w2) == value(w3);
+    }
+
+    static boolean leadingZero(String w) {
+        return assignedDigit[w.charAt(0) - 'A'] == 0;
+    }
+
+    static int value(String w) {
+        int val = 0;
+        for (int i = 0; i < w.length(); ++i)
+            val = val * 10 + assignedDigit[w.charAt(i) - 'A'];
+        return val;
+    }
+
+    static void backtrack(int char_idx, String w1, String w2, String w3) {
+        if (char_idx == 26) {
+
+            if (check(w1, w2, w3)) {
+                System.out.println("Found a solution!");
+                for (int i = 0; i < 26; ++i)
+                    if (usedLetter[i])
+                        System.out.printf("[%c = %d]", (char) (i + 'A'), assignedDigit[i]);
+                System.out.println("\n------");
+            }
+            return;
+        }
+
+        if (!usedLetter[char_idx]) {
+            backtrack(char_idx + 1, w1, w2, w3);
+            return;
+        }
+
+        for (int digit = 0; digit < 10; ++digit)
+            if (!usedDigit[digit]) {
+                usedDigit[digit] = true;
+                assignedDigit[char_idx] = digit;
+                backtrack(char_idx + 1, w1, w2, w3);
+                usedDigit[digit] = false;
+            }
+    }
 }
